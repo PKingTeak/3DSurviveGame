@@ -13,6 +13,8 @@ public class UnitBaseStats
     public float moveSpeed;
 }
 
+
+[CreateAssetMenu(menuName = "Units/UnitData")]
 public class UnitData : ScriptableObject
 {
     public UnitBaseStats baseStats;
@@ -27,23 +29,26 @@ public enum AttackType { Melee, Ranged, None }
 
 
 public class Unit : MonoBehaviour
-{
+{ 
+    protected Unit()
+    {
+        
+        unitData.name = "None";
+        unitData.brainType = BrainType.None;
+        unitData.moveType = MoverType.NavMesh;
+        unitData.attackType = AttackType.None;
+    }
+
     #region UnitInfo
-    protected UnitData unitData;
+    public UnitData unitData = new UnitData();
     #endregion
 
     #region Stats
-    protected string unitName { get; set; }
-    protected int unitHp { get; set; }
-    protected int unitMp { get; set; }
-
-    protected int unitDefense { get; set; }
-    protected int unitPower { get; set; } //스탯은 일단 하나로 통일
-    protected int unitLevel { get; set; }
+    protected UnitBaseStats unitBaseStats;
     #endregion
     protected void Die()
     {
-        Debug.Log($"{unitName}이(가) 사망했습니다.");
+        Debug.Log($"{unitBaseStats.name}이(가) 사망했습니다.");
         Destroy(this.gameObject); //나중에 풀링 + 이펙트 추가
     }
 
