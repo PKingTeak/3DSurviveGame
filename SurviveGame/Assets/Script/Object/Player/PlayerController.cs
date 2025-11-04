@@ -28,8 +28,10 @@ public class PlayerController : MonoBehaviour
     #region RayInfo
     [SerializeField] private LayerMask groundMask;
     private float rayLength = 0.25f;
-    private float edgeOffset = 0.05f;
-    private bool debugRay = false;
+    private float edgeOffset = 0.05f; //센터 주변 링 좀더 세세한 판정을 위해서 
+    private float centerRayExtra = 0.3f; //발 아래 
+    private float centerRingRadius = 0.1f; //링반지름
+    private bool debugRay = true;
 
     private CapsuleCollider capCol;
     #endregion
@@ -57,12 +59,12 @@ public class PlayerController : MonoBehaviour
         _map.Enable();
 
         aMove = _map.FindAction(moveActionName, false);
-        aJump = _map.FindAction(lookActionName, false); //액션 맵핑 해주기 
+        aJump = _map.FindAction(jumpActionName, false); //액션 맵핑 해주기 
     }
 
     private void FixedUpdate()
     {
-        if (aMove == null)
+        if (aMove == null || player == null || rigid == null)
         {
             return;
         }
@@ -80,60 +82,78 @@ public class PlayerController : MonoBehaviour
         rigid.linearVelocity = v;
 
 
-        if (aJump != null && aJump.WasPressedThisFrame() && IsGrounded())
+        if (aJump != null && aJump.WasPressedThisFrame() && IsGrounded(out var origins))
         {
 
-            var vel = rigid.linearVelocity; vel.y = 0f;
+            var vel = rigid.linearVelocity; 
+            vel.y = 0f;
             rigid.linearVelocity = vel;
-            rigid.AddForce(Vector3.up * player.JumpForce, ForceMode.VelocityChange); //값을 가져와서 사용하는방식
+            rigid.AddForce(Vector3.up * player.JumpForce,ForceMode.VelocityChange); //값을 가져와서 사용하는방식
         }
 
 
     }
 
-    private bool IsGrounded()
+    private bool IsGrounded(out Vector3[] origins)
     {
         if (capCol == null)
         {
             capCol = GetComponent<CapsuleCollider>();
         }
 
-        Vector3 buttomCenter = capCol.center - new Vector3(0f, capCol.bounds.extents.y , 0f) + Vector3.up* 0.01f;
+        // (변경 1) 월드 좌표 기준 '발바닥 중앙'
+        Vector3 buttomCenter = new Vector3(
+            capCol.bounds.center.x,
+            capCol.bounds.min.y + 0.01f, //살짝 띄우기
+            capCol.bounds.center.z
+        );
 
         float r = capCol.radius + edgeOffset;
-        Vector3 f = transform.forward * r;
-        Vector3 b = -transform.forward * r;
-        Vector3 rgt = transform.right * r;
-        Vector3 l = -transform.right * r;
-
-        Vector3[] origins = new[] { buttomCenter + f, buttomCenter + b, buttomCenter + l, buttomCenter + rgt };
-        foreach (var o in origins)
+                
+        origins = new[] 
         {
-            bool hit = Physics.Raycast(o, Vector3.down, out _, rayLength, groundMask, QueryTriggerInteraction.Ignore);
-            if (debugRay)
-            { 
-            Debug.DrawRay(o, Vector3.down * rayLength, hit ? Color.green : Color.red, 0.02f);
+           buttomCenter + transform.forward *r,
+           buttomCenter - transform.forward *r,
+           buttomCenter + transform.right *r,
+           buttomCenter - transform.right *r,
+        };
+
+        bool any = false;
+
+        for (int i = 0; i < origins.Length; i++)
+        {
+            bool hit = Physics.Raycast(origins[i], Vector3.down, out _, rayLength, groundMask, QueryTriggerInteraction.Ignore);
+            Debug.DrawRay(origins[i], Vector3.down * rayLength , hit ? Color.green : Color.red , 0.1f);
+            if (hit)
+            {
+                any = true;
             }
 
-
-            if (hit) return true;
         }
-
-        return false;
-
-    
+        return any;
     }
 
-    private void Update()
+
+    private void OnDrawGizmos()
     {
+        if (!debugRay) return;
 
+        Vector3 worldCenter = transform.TransformPoint(capCol.center);
+        float halfHeight = capCol.height * 0.5f;
+        float legLength = Mathf.Max(0f, halfHeight - capCol.radius);
+
+
+        float length = legLength + centerRayExtra;
+        bool hitCenter = Physics.Raycast(worldCenter, Vector3.down, out _, length, groundMask, QueryTriggerInteraction.Ignore);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(worldCenter, worldCenter + Vector3.down * length);
+        Gizmos.DrawSphere(worldCenter + Vector3.down * length, 0.02f);
+
+        
     }
-
-    private void Jump()
-    {
-        // rigid.AddForce()
-    }
-
-
 
 }
+
+
+    

@@ -603,7 +603,7 @@ GameObject:
   - component: {fileID: 1498403237}
   - component: {fileID: 1498403236}
   - component: {fileID: 1498403235}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -916,6 +916,8 @@ GameObject:
   - component: {fileID: 2007063401}
   - component: {fileID: 2007063405}
   - component: {fileID: 2007063406}
+  - component: {fileID: 2007063408}
+  - component: {fileID: 2007063407}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1057,6 +1059,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   unitData: {fileID: 11400000, guid: 802d4b5e5ca76a748805806ca303b969, type: 2}
+--- !u!114 &2007063407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2007063399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2a58565edf4edf4c80eb1526f9e1d59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  inputActions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
+  actionMapName: Player
+  moveActionName: Move
+  lookActionName: Look
+  jumpActionName: Jump
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 128
+--- !u!143 &2007063408
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2007063399}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
