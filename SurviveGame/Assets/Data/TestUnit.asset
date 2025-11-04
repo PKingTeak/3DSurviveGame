@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: d0daf710258c56441aa71faa09d7ab2a, type: 3}
   m_Name: TestUnit
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
-  baseStats:
-    name: 
-    maxHp: 0
-    power: 0
-    defense: 0
-    moveSpeed: 0
+  name: player1
+  maxHp: 10
+  power: 2
+  defense: 2
+  moveSpeed: 5
+  jumpForce: 4
   brainType: 0
   moveType: 0
   attackType: 0

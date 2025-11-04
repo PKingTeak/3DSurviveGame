@@ -14,8 +14,7 @@ public class GameManager : MonoBehaviour
 
 
     public Button TestButton;
-    public Player newPlayer1;
-
+   
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -29,7 +28,7 @@ public class GameManager : MonoBehaviour
         string key = "PlayerName";
         EventBus<string>.PublishAction(key, name);
 
-        newPlayer1.GetUnitState();
+     
 
     }
 

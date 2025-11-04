@@ -576,7 +576,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   TestButton: {fileID: 1926272450}
-  newPlayer1: {fileID: 2007063406}
 --- !u!4 &1479994655
 Transform:
   m_ObjectHideFlags: 0
@@ -915,7 +914,6 @@ GameObject:
   - component: {fileID: 2007063403}
   - component: {fileID: 2007063402}
   - component: {fileID: 2007063401}
-  - component: {fileID: 2007063400}
   - component: {fileID: 2007063405}
   - component: {fileID: 2007063406}
   m_Layer: 0
@@ -925,21 +923,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2007063400
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2007063399}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71ddafd1f602c0a4fbb67f61a91094c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerWalk
-  WalkSpeed: 2
-  JumpForce: 5
-  RotationSpeed: 5
 --- !u!136 &2007063401
 CapsuleCollider:
   m_ObjectHideFlags: 0
