@@ -2,9 +2,17 @@ using System;
 using Unity;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Unit : MonoBehaviour
 {
+
+    public virtual void Init(UnitData data)
+    {
+        unitData = data;
+
+        
+    }
     
 
   
@@ -23,16 +31,16 @@ public class Unit : MonoBehaviour
     public float JumpForce {  get => unitData.jumpForce; }
 
 
-
-  
+   
     protected void Die()
     {
         Debug.Log($"{unitData.name}이(가) 사망했습니다.");
         Destroy(this.gameObject); //나중에 풀링 + 이펙트 추가
     }
 
-    protected void Spawn(Vector3 postition)
+    protected virtual void Spawn(Vector3 postition)
     {
+        
         // 생성 로직 만들꺼임
     }
 

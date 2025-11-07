@@ -15,6 +15,7 @@ public class UnitData : ScriptableObject
     public float moveSpeed;
     public float jumpForce;
 
+
     public BrainType brainType; //유닛의 인공지능 타입
     public MoverType moveType; //이동방식
     public AttackType attackType; //공격 방식
@@ -24,8 +25,8 @@ public class UnitData : ScriptableObject
 }
 
 
-public enum BrainType { Player, AIMonster, None}
-public enum MoverType { CharacterController, Rigidbody, NavMesh }
+public enum BrainType { Player, AIMonster, Fsm, None}
+public enum MoverType { CharacterController, Rigidbody, NavMesh , None }
 public enum AttackType { Melee, Ranged, None }
 
 

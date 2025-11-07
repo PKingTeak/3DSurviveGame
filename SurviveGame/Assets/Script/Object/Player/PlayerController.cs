@@ -1,4 +1,5 @@
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -47,7 +48,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         player = GetComponent<Player>();
-        capCol = GetComponent<CapsuleCollider>();
+        capCol = this.GetComponent<CapsuleCollider>();
         inputActions.FindAction(actionMapName);
 
         rigid = GetComponent<Rigidbody>();
@@ -136,7 +137,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (!debugRay) return;
+        if (!debugRay || !EditorApplication.isPlaying) return;
 
         Vector3 worldCenter = transform.TransformPoint(capCol.center);
         float halfHeight = capCol.height * 0.5f;
