@@ -10,8 +10,6 @@ public class Unit : MonoBehaviour
     public virtual void Init(UnitData data)
     {
         unitData = data;
-
-        
     }
     
 
@@ -21,6 +19,7 @@ public class Unit : MonoBehaviour
     [Header("UnitData")]
     [SerializeField]
     private UnitData unitData;
+    public UnitData UnitData { get { return unitData; } }
     //unitBaseState -> UnitData 내부에 있음
     #endregion
 

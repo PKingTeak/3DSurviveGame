@@ -14,18 +14,26 @@ public class EnemyFactory : MonoBehaviour
     
 
 
-    public void Spawn(UnitData data, Vector3 pos, Transform parent =null)
+    public Enemy Spawn(UnitData data, Vector3 pos, Transform parent =null)
     {
-        var go = Instantiate(data,pos,Quaternion.identity,parent);
-        var enemy = GetComponent<Enemy>()?.AddComponent<Enemy>();
-       
 
+        if (data == null)
+        {
+            Debug.Log($"{data}null입니다.");
+        }
+
+        var prefab = data.prfabs;
+        var go = Instantiate(prefab, pos, Quaternion.identity, parent);
+        
+        var enemy = go.GetComponent<Enemy>() ?? go.AddComponent<Enemy>();
+        enemy.Init(data);
+        
 
         switch (data.attackType)
         {
             case AttackType.Melee:
 
-                go.GetComponent<MeleeAttacker>()?.AddComponent<MeleeAttacker>();
+                var atk = go.GetComponent<MeleeAttacker>() ??  go.AddComponent<MeleeAttacker>();
                 break;
             
         }
@@ -34,8 +42,13 @@ public class EnemyFactory : MonoBehaviour
         switch (data.moveType)
         {
             case MoverType.Rigidbody:
-                go.GetComponent<Rigidbody>()?.AddComponent<Rigidbody>();
-                go.GetComponent<RbMover>()?.AddComponent<RbMover>(); //없으면 넣어
+               var rigid =  go.GetComponent<Rigidbody>() ?? go.AddComponent<Rigidbody>();
+                // 회전 고정
+                rigid.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+
+
+                var RMover =  go.GetComponent<RbMover>() ?? go.AddComponent<RbMover>(); //없으면 넣어  //그러면 해당 값을 변수로 받아서 사용해야하나?
+                RMover.Speed = data.moveSpeed;
                 break;
         }
 
@@ -43,15 +56,16 @@ public class EnemyFactory : MonoBehaviour
         switch (data.brainType)
         {
             case BrainType.AIMonster:
-              
+               //네비매쉬
                 break ;
             case BrainType.Fsm:
-                go.GetComponent<ChaseBrainFSM>()?.AddComponent<ChaseBrainFSM>();
+                var chaseBrain = go.GetComponent<ChaseBrainFSM>() ?? go.AddComponent<ChaseBrainFSM>();
                 break;
         }
 
-       // return go;
 
+        return enemy;
+       
     }
 
 

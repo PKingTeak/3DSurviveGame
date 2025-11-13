@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0daf710258c56441aa71faa09d7ab2a, type: 3}
   m_Name: TestEnemy
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
+  prfabs: {fileID: 3538884679053156959, guid: 5910cae9a2efe8144ae5bcd9cd7a7ad5, type: 3}
   name: NormalEnemy
   maxHp: 10
   power: 10
   defense: 10
-  moveSpeed: 10
   jumpForce: 2
-  brainType: 1
+  brainType: 2
   moveType: 1
   attackType: 0
+  moveSpeed: 10
