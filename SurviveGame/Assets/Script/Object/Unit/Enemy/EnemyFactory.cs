@@ -26,8 +26,7 @@ public class EnemyFactory : MonoBehaviour
         var go = Instantiate(prefab, pos, Quaternion.identity, parent);
         
         var enemy = go.GetComponent<Enemy>() ?? go.AddComponent<Enemy>();
-        enemy.Init(data);
-        
+       
 
         switch (data.attackType)
         {
@@ -63,6 +62,7 @@ public class EnemyFactory : MonoBehaviour
                 break;
         }
 
+        enemy.Init(data);
 
         return enemy;
        

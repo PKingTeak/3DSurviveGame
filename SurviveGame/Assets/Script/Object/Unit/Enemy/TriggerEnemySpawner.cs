@@ -47,12 +47,10 @@ public class TriggerEnemySpawner : MonoBehaviour
 
 
     [SerializeField] private EnemyFactory enemyFactory; //직접 넣어주기 // 나중에 리펙토링
-    private EnemyManager enemyManager;
-
+    
     public void Awake()
     {
-        enemyManager = GameManager.Instance.enemyManager;
-
+        
 
     }
 
@@ -93,28 +91,22 @@ public class TriggerEnemySpawner : MonoBehaviour
 
         }
 
-        foreach (var pair in currentWave)
-        {
-            Debug.Log($"{pair.data} , {pair.count}");
-        }
-
-        enemyManager.OnWaveStart(1, total);
 
         foreach (var entry in currentWave)
         {
             UnitData data = entry.data;
             int count = Mathf.Max(0,entry.count);
-
+            Debug.Log($"{data.name}, {data} , {count} ");
             for (int i = 0; i < count; i++)
             {
                 int spawnIndex = UnityEngine.Random.Range(0, spawnPos.Count);
                 Vector3 pos = spawnPos.Count > 0 ? spawnPos[spawnIndex] : transform.position;
-
-               var enemy = enemyFactory.Spawn(data, pos, null);
-
+                
+                var enemy = enemyFactory.Spawn(data, pos, null);
+                Debug.Log($"{enemy}  , {enemy.name}");
                 if (enemy != null)
                 {
-                    enemyManager.OnSpawned(enemy);
+                    GameManager.Instance.enemyManager.OnSpawned(enemy);
                     unitCount++;
                     Debug.Log($"유닛 생성 {enemy.name}");
                 }
@@ -123,7 +115,8 @@ public class TriggerEnemySpawner : MonoBehaviour
                     Debug.Log("유닛 미생성");
                 }
                 //딜레이
-               // 딜레이 원할때 yield return null;
+                // 딜레이 원할때 yield return null;
+
             }
 
 
@@ -132,6 +125,7 @@ public class TriggerEnemySpawner : MonoBehaviour
             
         }
 
+        GameManager.Instance.enemyManager.OnWaveStart(1, total);
     }
 
 

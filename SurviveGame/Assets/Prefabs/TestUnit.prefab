@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 6318693544274586030}
   - component: {fileID: 4788427089055603732}
   - component: {fileID: 8067384246833399923}
-  - component: {fileID: 4963694987374081576}
   - component: {fileID: 4840516593447639718}
   m_Layer: 13
   m_Name: TestUnit
@@ -169,19 +168,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4963694987374081576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3538884679053156959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa9f67af4b22b404086ce097e4d69701, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  unitData: {fileID: 11400000, guid: 5a6280cff6e93cd4b9adeb29951673cd, type: 2}
 --- !u!114 &4840516593447639718
 MonoBehaviour:
   m_ObjectHideFlags: 0
